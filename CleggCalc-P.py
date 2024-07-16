@@ -20,9 +20,11 @@ inputValid = False #make sure menu input is valid
 #Intro (TODO: make into menu)
 print("This is CleggCalc-P: a coding exercise in Python to make a calculator!")
 
+#Number input
 numList.append(int(input("Input a number: ")))
 numList.append(int(input("Input another number: ")))
 
+#Choosing calculation
 while inputValid == False:
     menuChoice = input("Choose what you want to do with these numbers (add, subtract, multiply, divide): ")
     match menuChoice.lower():
@@ -40,7 +42,6 @@ while inputValid == False:
             result = Divide(numList[0], numList[1])
     if inputValid == False:
         print("Sorry, please input a correct choice.")
-#Number input
 
 print("The result is %d!" % result)
 
