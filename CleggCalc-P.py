@@ -1,3 +1,10 @@
+ #Var definition
+numList = [] #list of numbers to use
+result = float(0) #result of calculation
+numberChoice = float(0)
+menuChoice = " " #choice in menus (i.e, choose between add, subtract, multiply or divide)
+inputValid = False #make sure menu input is valid
+
 #functions for calculations
 def Add(x, y):
     return x + y
@@ -11,18 +18,15 @@ def Divide(x, y):
 def Multiply(x, y):
     return x * y
 
-#Var definition
-numList = [] #list of numbers to use
-result = 0 #result of calculation
-menuChoice = " " #choice in menus (i.e, choose between add, subtract, multiply or divide)
-inputValid = False #make sure menu input is valid
+def InputNumber():
+    numList.append(int(input("Input a number: ")))
 
 #Intro (TODO: make into menu)
 print("This is CleggCalc-P: a coding exercise in Python to make a calculator!")
 
-#Number input
-numList.append(int(input("Input a number: ")))
-numList.append(int(input("Input another number: ")))
+#Number input6
+numList.append(float(input("Input a number: ")))
+numList.append(float(input("Input another number: ")))
 
 #Choosing calculation
 while inputValid == False:
@@ -43,5 +47,5 @@ while inputValid == False:
     if inputValid == False:
         print("Sorry, please input a correct choice.")
 
-print("The result is %d!" % result)
+print("The result is %f!" % result)
 
