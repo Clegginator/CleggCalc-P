@@ -1,4 +1,6 @@
- #Var definition
+import math 
+
+#Var definition
 numList = [] #list of numbers to use
 result = float(0) #result of calculation
 numberChoice = float(0)
@@ -18,6 +20,9 @@ def Divide(x, y):
 def Multiply(x, y):
     return x * y
 
+def Incice(x, y):
+    return pow(x, y)
+
 def InputNumber():
     numList.append(int(input("Input a number: ")))
 
@@ -30,7 +35,7 @@ numList.append(float(input("Input another number: ")))
 
 #Choosing calculation
 while inputValid == False:
-    menuChoice = input("Choose what you want to do with these numbers (add, subtract, multiply, divide): ")
+    menuChoice = input("Choose what you want to do with these numbers (add, subtract, multiply, divide, indice): ")
     match menuChoice.lower():
         case "add":
             inputValid = True
@@ -44,6 +49,9 @@ while inputValid == False:
         case "divide":
             inputValid = True
             result = Divide(numList[0], numList[1])
+        case "indice":
+            inputValid = True
+            result = Incice(numList[0], numList[1])
     if inputValid == False:
         print("Sorry, please input a correct choice.")
 
