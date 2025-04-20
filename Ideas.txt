@@ -1,3 +1,5 @@
 How to figure out multiple inputs per calculation (eg, 3 + 6 - 5)
 2 arrays? One for numbers, one for inputs? So [3, 6, 5] and ["plus", "minus"]
 Probably make an enum for operators?
+
+Intro menu?
