@@ -93,9 +93,11 @@ while inputValid == False:
     try: #look out for errors
         menuChoice = str(input("What do you want to do?\n1: Calculate something\n2: Look at your previous calculation\n"))
         if str(menuChoice) == "1":
+                inputValid = True
                 clear()
                 Calculation()
         elif str(menuChoice) == "2":
+                inputValid = True
                 with open (logFileName, "r") as logFile:
                     calcHistory = csv.reader(logFile)
                     
