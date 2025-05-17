@@ -53,21 +53,21 @@ def Calculation():
     inputValid = False
     while inputValid == False:
         try: #look out for error
-            menuChoice = input("Choose what you want to do with these numbers (add, subtract, multiply, divide, indice): ")
-            match menuChoice.lower():
-                case "add":
+            menuChoice = input("Choose what you want to do with these numbers (Add, Subtract, Multiply, Divide, Indice): ")
+            match menuChoice[0].lower():
+                case "a":
                     inputValid = True
                     result = Add(numList[0], numList[1])
-                case "subtract":
+                case "s":
                     inputValid = True
                     result = Subtract(numList[0], numList[1])
-                case "multiply":
+                case "m":
                     inputValid = True
                     result = Multiply(numList[0], numList[1])
-                case "divide":
+                case "d":
                     inputValid = True
                     result = Divide(numList[0], numList[1])
-                case "indice":
+                case "i":
                     inputValid = True
                     result = Incice(numList[0], numList[1])
             if inputValid == False:
