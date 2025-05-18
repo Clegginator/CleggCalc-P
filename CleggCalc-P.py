@@ -1,9 +1,18 @@
 import math 
 from os import system, name
+from enum import Enum
 import csv
+
+class Operators(Enum):
+    ADD = 1
+    SUBTRACT = 2
+    MULTIPLY = 3
+    DIVIDE = 4
+    INDICE = 5
 
 #Var definition
 numList = [] #list of numbers to use
+opList = [] #list of operators to use
 result = float(0) #result of calculation
 numberChoice = float(0)
 menuChoice = " " #choice in menus (i.e, choose between add, subtract, multiply or divide)
@@ -84,32 +93,37 @@ def Calculation():
     logFile.close
     return
 
+def WriteCalcString(value, ): #for writing the calc to a string for user readability
+    return
 
-#Intro (TODO: make into menu)
 clear()
 print("This is CleggCalc-P: a coding exercise in Python to make a calculator!\n")
 
 while inputValid == False:
-    try: #look out for errors
-        menuChoice = str(input("What do you want to do?\n1: Calculate something\n2: Look at your previous calculation\n"))
-        if str(menuChoice) == "1":
+    #try: #look out for errors (TODO: figure out why the except breaks when uncommented)
+        menuChoice = int(input("What do you want to do?\n1: Calculate something\n2: Look at your previous calculation\n3: Quit program\n"))
+        match menuChoice:
+            case 1:
                 inputValid = True
                 clear()
                 Calculation()
-        elif str(menuChoice) == "2":
+            case 2:
                 inputValid = True
                 with open (logFileName, "r") as logFile:
                     calcHistory = csv.reader(logFile)
-                    
                     for currentRow in calcHistory:
                         print(",".join(currentRow)) # comma and "join" is to make it look cleaner
+            case 3:
+                inputValid = True
+                quit()
+
         if inputValid == False:
             clear()
             print("Sorry, please input a correct choice.\n")
-    except:
-        error = system.exc_info()[0]
-        clear()
-        print("Invalid input\n")
-        print(error)
+    #except:
+        #error = system.exc_info()[0]
+        #clear()
+        #print("Invalid input\n")
+        #print(error)
 
 
