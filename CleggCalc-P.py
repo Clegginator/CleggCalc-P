@@ -91,39 +91,67 @@ def Calculation():
     print("The result is %f!" % result)
     logFile.write(str(numList[0]) + ","  + menuChoice + "," + str(numList[1]) + ",=," + str(result) + "\n")
     logFile.close
+    NewCalcChoice()
     return
 
-def WriteCalcString(value, ): #for writing the calc to a string for user readability
+def WriteCalcString(value): #for writing the calc to a string for user readability
     return
 
-clear()
-print("This is CleggCalc-P: a coding exercise in Python to make a calculator!\n")
-
-while inputValid == False:
-    #try: #look out for errors (TODO: figure out why the except breaks when uncommented)
-        menuChoice = int(input("What do you want to do?\n1: Calculate something\n2: Look at your previous calculation\n3: Quit program\n"))
+def NewCalcChoice(): #for after a calculation is done, letting the user return to the menu
+    inputValid = False
+    while inputValid == False:
+        menuChoice = int(input("What do you want to do now?\n1: Return to main menu\n2: Quit Program"))
         match menuChoice:
             case 1:
                 inputValid = True
                 clear()
-                Calculation()
+                MainMenu()
             case 2:
                 inputValid = True
-                with open (logFileName, "r") as logFile:
-                    calcHistory = csv.reader(logFile)
-                    for currentRow in calcHistory:
-                        print(",".join(currentRow)) # comma and "join" is to make it look cleaner
-            case 3:
-                inputValid = True
                 quit()
-
         if inputValid == False:
             clear()
             print("Sorry, please input a correct choice.\n")
-    #except:
-        #error = system.exc_info()[0]
-        #clear()
-        #print("Invalid input\n")
-        #print(error)
+    return
 
+def PrintLog(): #For printing results from log file
+    with open (logFileName, "r") as logFile:
+        calcHistory = csv.reader(logFile)
+        a = 1
+        for currentRow in calcHistory:
+            print(str(a) + ": " + ",".join(currentRow)) # comma and "join" is to make it look cleaner, separate each piece of data out
+            a += 1
+    print()
+    NewCalcChoice()
+    return
 
+def MainMenu(): #Main choice selection
+    inputValid = False
+    while inputValid == False:
+        #try: #look out for errors (TODO: figure out why the except breaks when uncommented)
+            menuChoice = int(input("What do you want to do?\n1: Calculate something\n2: Look at calculation history\n3: Quit program\n"))
+            match menuChoice:
+                case 1:
+                    inputValid = True
+                    clear()
+                    Calculation()
+                case 2:
+                    clear()
+                    PrintLog()
+                    inputValid = True
+                case 3:
+                    inputValid = True
+                    quit()
+            if inputValid == False:
+                clear()
+                print("Sorry, please input a correct choice.\n")
+        #except:
+            #error = system.exc_info()[0]
+            #clear()
+            #print("Invalid input\n")
+            #print(error)
+    return
+
+clear()
+print("This is CleggCalc-P: a coding exercise in Python to make a calculator!\n")
+MainMenu()
