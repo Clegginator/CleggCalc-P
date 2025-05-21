@@ -12,3 +12,6 @@ def PrintLog(): #For printing results from log file
             a += 1
     print("test")
     return
+
+def WriteCalcString(value): #for writing the calc to a string for user readability
+    return
