@@ -2,6 +2,7 @@ import math
 from os import system, name
 from enum import Enum
 import csv
+from ListManage import * #import everything from ListManage.py
 
 class Operators(Enum):
     ADD = 1
@@ -17,7 +18,6 @@ result = float(0) #result of calculation
 numberChoice = float(0)
 menuChoice = " " #choice in menus (i.e, choose between add, subtract, multiply or divide)
 inputValid = False #make sure menu input is valid
-logFileName = "CalcLog.csv" #file to save to whenever calculations are done
 
 def clear():
 
@@ -52,40 +52,42 @@ def InputNumber():
     return
 
 def Calculation():
+    endCalculation = False #bool to turn to true when calculations are done being added
     logFile = open (logFileName, "a") #use w for writing (read, wiping and rewriting the file every time), use a for append (read, adding to it every time)
 
     #Number input
     numList.append(float(input("Input a number: ")))
-    numList.append(float(input("Input another number: ")))
+    while endCalculation == False:
+        numList.append(float(input("Input another number: ")))
 
-    #Choosing calculation
-    inputValid = False
-    while inputValid == False:
-        try: #look out for error
-            menuChoice = input("Choose what you want to do with these numbers (Add, Subtract, Multiply, Divide, Indice): ")
-            match menuChoice[0].lower():
-                case "a":
-                    inputValid = True
-                    result = Add(numList[0], numList[1])
-                case "s":
-                    inputValid = True
-                    result = Subtract(numList[0], numList[1])
-                case "m":
-                    inputValid = True
-                    result = Multiply(numList[0], numList[1])
-                case "d":
-                    inputValid = True
-                    result = Divide(numList[0], numList[1])
-                case "i":
-                    inputValid = True
-                    result = Incice(numList[0], numList[1])
-            if inputValid == False:
-                print("Sorry, please input a correct choice.\n")
-        except:
-            error = system.exc_info()[0]
-            clear()
-            print("Invalid input\n")
-            print(error)
+        #Choosing calculation
+        inputValid = False
+        while inputValid == False:
+            #try: #look out for error
+                menuChoice = input("Choose what you want to do with these numbers (Add, Subtract, Multiply, Divide, Indice): ")
+                match menuChoice[0].lower():
+                    case "a":
+                        inputValid = True
+                        result = Add(numList[0], numList[1])
+                    case "s":
+                        inputValid = True
+                        result = Subtract(numList[0], numList[1])
+                    case "m":
+                        inputValid = True
+                        result = Multiply(numList[0], numList[1])
+                    case "d":
+                        inputValid = True
+                        result = Divide(numList[0], numList[1])
+                    case "i":
+                        inputValid = True
+                        result = Incice(numList[0], numList[1])
+                if inputValid == False:
+                    print("Sorry, please input a correct choice.\n")
+            #except:
+                #error = system.exc_info()[0]
+                #clear()
+                #print("Invalid input\n")
+                #print(error)
 
 
     print("The result is %f!" % result)
@@ -100,7 +102,7 @@ def WriteCalcString(value): #for writing the calc to a string for user readabili
 def NewCalcChoice(): #for after a calculation is done, letting the user return to the menu
     inputValid = False
     while inputValid == False:
-        menuChoice = int(input("What do you want to do now?\n1: Return to main menu\n2: Quit Program"))
+        menuChoice = int(input("What do you want to do now?\n1: Return to main menu\n2: Quit Program\n"))
         match menuChoice:
             case 1:
                 inputValid = True
@@ -114,17 +116,6 @@ def NewCalcChoice(): #for after a calculation is done, letting the user return t
             print("Sorry, please input a correct choice.\n")
     return
 
-def PrintLog(): #For printing results from log file
-    with open (logFileName, "r") as logFile:
-        calcHistory = csv.reader(logFile)
-        a = 1
-        for currentRow in calcHistory:
-            print(str(a) + ": " + ",".join(currentRow)) # comma and "join" is to make it look cleaner, separate each piece of data out
-            a += 1
-    print()
-    NewCalcChoice()
-    return
-
 def MainMenu(): #Main choice selection
     inputValid = False
     while inputValid == False:
@@ -136,9 +127,10 @@ def MainMenu(): #Main choice selection
                     clear()
                     Calculation()
                 case 2:
+                    inputValid = True
                     clear()
                     PrintLog()
-                    inputValid = True
+                    NewCalcChoice()
                 case 3:
                     inputValid = True
                     quit()
