@@ -64,23 +64,23 @@ def Calculation():
         inputValid = False
         while inputValid == False:
             #try: #look out for error
-                menuChoice = input("Choose what you want to do with these numbers (Add, Subtract, Multiply, Divide, Indice): ")
+                menuChoice = input("Input next operator (Add, Subtract, Multiply, Divide, Indice): ")
                 match menuChoice[0].lower():
                     case "a":
                         inputValid = True
-                        result = Add(numList[0], numList[1])
+                        opList.append(Operators.ADD)
                     case "s":
                         inputValid = True
-                        result = Subtract(numList[0], numList[1])
+                        opList.append(Operators.SUBTRACT)
                     case "m":
                         inputValid = True
-                        result = Multiply(numList[0], numList[1])
+                        opList.append(Operators.MULTIPLY)
                     case "d":
                         inputValid = True
-                        result = Divide(numList[0], numList[1])
+                        opList.append(Operators.DIVIDE)
                     case "i":
                         inputValid = True
-                        result = Incice(numList[0], numList[1])
+                        opList.append(Operators.INDICE)
                 if inputValid == False:
                     print("Sorry, please input a correct choice.\n")
             #except:
@@ -88,15 +88,25 @@ def Calculation():
                 #clear()
                 #print("Invalid input\n")
                 #print(error)
-
-
-    print("The result is %f!" % result)
-    logFile.write(str(numList[0]) + ","  + menuChoice + "," + str(numList[1]) + ",=," + str(result) + "\n")
-    logFile.close
+        inputValid = False
+        while inputValid == False:
+            menuChoice = int(input("Do you want to input another number and operator?\n1: Yes\n2: No (move onto final calculation)\n"))
+            match menuChoice:
+                case 1:
+                    inputValid = True
+                    clear()
+                case 2:
+                    inputValid = True
+                    endCalculation = True
+            if inputValid == False:
+                clear()
+                print("Sorry, please input a correct choice.\n")
+    print(numList)
+    print(opList)
+    #print("The result is %f!" % result)
+    #logFile.write(str(numList[0]) + ","  + menuChoice + "," + str(numList[1]) + ",=," + str(result) + "\n")
+    #logFile.close
     NewCalcChoice()
-    return
-
-def WriteCalcString(value): #for writing the calc to a string for user readability
     return
 
 def NewCalcChoice(): #for after a calculation is done, letting the user return to the menu
